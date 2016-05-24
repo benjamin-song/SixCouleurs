@@ -7,7 +7,9 @@ public class bouton {
 	}
 	
 	public void afficherBouton(double x, double y){
-		c.defCouleur();
+		if(this.c.getjcolor()==null){
+		c.defCouleur();}
+		else{StdDraw.setPenColor(StdDraw.BLACK);}
 		StdDraw.filledCircle(x, y, 1);
 	}
 }

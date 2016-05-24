@@ -23,9 +23,16 @@ public class partie {
 				if(p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().getjcolor()==null){
 				p.getp()[j[i].getx0()][j[i].gety0()].setj(j[i]);
 				p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().setjcolor(j[i]);
-				c+=1;}}
+				c+=1;}
+				}
 		 }}
-       }
+    	   p.affplateau();
+    	   for(int k=0;k<p.getl();++k){
+   			for(int t=0;t<p.getl();++t){
+   				for(int l=0;l<p.getl();++l){
+   					p.controlCase(t, l);
+   				}
+   			}}}
 	}
 	public void tour(joueur j,couleur c){
 		couleur exc=p.getp()[j.getx0()][j.gety0()].getcasecolor();
@@ -57,42 +64,41 @@ while(c!=1){
 		if(y<0){
 			System.out.println(x);
 			System.out.println(y);
-		if((x==1||x==0) && (y==-1||y==-2)){
+		if((x==1||x==0) && (y==-1||y==-2) && p.getrouge().getjcolor()==null){
 			tour(j[i],p.getrouge());
-			
+			c=1;
 		}
-		if((x==2||x==3) && (y==-1||y==-2)){
+		if((x==2||x==3) && (y==-1||y==-2) && p.getorange().getjcolor()==null){
 			tour(j[i],p.getorange());
-			
+			c=1;
 		}
-		if((x==4||x==5) && (y==-1||y==-2)){
+		if((x==4||x==5) && (y==-1||y==-2) && p.getjaune().getjcolor()==null){
 			tour(j[i],p.getjaune());
-			
+			c=1;
 		}
-		if((x==6||x==7) && (y==-1||y==-2)){
+		if((x==6||x==7) && (y==-1||y==-2) && p.getvert().getjcolor()==null){
 			tour(j[i],p.getvert());
-			
+			c=1;
 		}
-		if((x==8||x==9) && (y==-1||y==-2)){
+		if((x==8||x==9) && (y==-1||y==-2) && p.getbleu().getjcolor()==null){
 			tour(j[i],p.getbleu());
-			
+			c=1;
 		}
-		if((x==10||x==11) && (y==-1||y==-2)){
+		if((x==10||x==11) && (y==-1||y==-2) && p.getcyan().getjcolor()==null){
 			tour(j[i],p.getcyan());
-			
+			c=1;
 		}
-		c+=c;}}
+		if(c==1){
+		p.affplateau();}}}
 	}
 }
 	public void game(){
 		p.defplateau();
 		p.affplateau();
 		this.initjoueur(2);
-		p.affplateau();
 		while(true){
 			for(int i=0;i<2;++i){
 		this.clickBouton(i);
-		p.affplateau();
 		}}
 	}
 
