@@ -58,15 +58,22 @@ public void defplateau(){
 }
 }
 
-public void affplateau(){
-	StdDraw.setCanvasSize(600,600);
-	StdDraw.setXscale(-0.5,this.l-0.5);
+public void affplateau(joueur[] jou){
+	StdDraw.setCanvasSize(800,600);
+	StdDraw.setXscale(-0.5,this.l+3.5);
 	StdDraw.setYscale(-2.5,this.l-0.5);
 	for(int i=0;i<l;i++){
 		for(int j=0;j<l;j++){
 			p[i][j].affCase();
 		}
 	}
+	if(jou!=null){
+	for(int t=0;t<jou.length;++t){
+		if(jou[t]!=null){
+			this.p[jou[t].getx0()][jou[t].gety0()].getcasecolor().defCouleur();
+		StdDraw.text(this.l+1,this.l-2-2*t,jou[t].getnom());
+		StdDraw.text(this.l+1,this.l-3-2*t,Integer.toString(jou[t].getscore()));
+	}}}
 	Brouge.afficherBouton(0.5, -1.5);
 	Borange.afficherBouton(2.5, -1.5);
 	Bjaune.afficherBouton(4.5, -1.5);
@@ -75,18 +82,27 @@ public void affplateau(){
 	Bcyan.afficherBouton(10.5, -1.5);
 }
 public void controlCase(int x,int y){
+	int voisin=0;
 if(p[x][y].getcasecolor().getjcolor()!=null && p[x][y].getjcase()==null){
 	if(y>0 &&(p[x][y].getcasecolor()==p[x][y-1].getcasecolor()) && p[x][y-1].getjcase()!=null){
 		p[x][y].setj(p[x][y-1].getjcase());
+		voisin=1;
 	}
 	if(y<this.l-1 &&(p[x][y].getcasecolor()==p[x][y+1].getcasecolor()) && p[x][y+1].getjcase()!=null){
 		p[x][y].setj(p[x][y+1].getjcase());
+		voisin=1;
 	}
 	if(x>0 &&(p[x][y].getcasecolor()==p[x-1][y].getcasecolor()) && p[x-1][y].getjcase()!=null){
 		p[x][y].setj(p[x-1][y].getjcase());
+		voisin=1;
 	}
 	if(x<this.l-1 &&(p[x][y].getcasecolor()==p[x+1][y].getcasecolor()) && p[x+1][y].getjcase()!=null){
 		p[x][y].setj(p[x+1][y].getjcase());
+		voisin=1;
+	}
+	if(voisin==1){
+		p[x][y].getcasecolor().getjcolor().setscore(p[x][y].getcasecolor().getjcolor().getscore()+1);
+
 	}
 }	
 }

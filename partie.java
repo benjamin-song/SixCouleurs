@@ -18,7 +18,7 @@ public class partie {
     	   if(StdDraw.mousePressed()){
 				int x=(int)Math.round(StdDraw.mouseX());
 				int y=(int)Math.round(StdDraw.mouseY());
-				if(y>=0){
+				if(y>=0 && x<p.getl()-0.5){
 				this.j[i]=new joueur(nom,x,y);
 				if(p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().getjcolor()==null){
 				p.getp()[j[i].getx0()][j[i].gety0()].setj(j[i]);
@@ -26,13 +26,14 @@ public class partie {
 				c+=1;}
 				}
 		 }}
-    	   p.affplateau();
     	   for(int k=0;k<p.getl();++k){
    			for(int t=0;t<p.getl();++t){
    				for(int l=0;l<p.getl();++l){
    					p.controlCase(t, l);
    				}
-   			}}}
+   			}}
+    	   p.affplateau(this.j);
+    	   }
 	}
 	public void tour(joueur j,couleur c){
 		couleur exc=p.getp()[j.getx0()][j.gety0()].getcasecolor();
@@ -62,8 +63,6 @@ while(c!=1){
 		int y=(int)Math.round(StdDraw.mouseY());
 		
 		if(y<0){
-			System.out.println(x);
-			System.out.println(y);
 		if((x==1||x==0) && (y==-1||y==-2) && p.getrouge().getjcolor()==null){
 			tour(j[i],p.getrouge());
 			c=1;
@@ -89,16 +88,19 @@ while(c!=1){
 			c=1;
 		}
 		if(c==1){
-		p.affplateau();}}}
+		p.affplateau(this.j);}}}
 	}
 }
 	public void game(){
 		p.defplateau();
-		p.affplateau();
+		p.affplateau(this.j);
 		this.initjoueur(2);
+		System.out.println(j[0].getscore());
+		System.out.println(j[1].getscore());
 		while(true){
-			for(int i=0;i<2;++i){
+			for(int i=0;i<p.getl();++i){
 		this.clickBouton(i);
+		System.out.println(j[i].getscore());
 		}}
 	}
 
