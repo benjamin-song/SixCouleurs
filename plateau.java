@@ -59,9 +59,7 @@ public void defplateau(){
 }
 
 public void affplateau(joueur[] jou){
-	StdDraw.setCanvasSize(800,600);
-	StdDraw.setXscale(-0.5,this.l+3.5);
-	StdDraw.setYscale(-2.5,this.l-0.5);
+	StdDraw.clear();
 	for(int i=0;i<l;i++){
 		for(int j=0;j<l;j++){
 			p[i][j].affCase();

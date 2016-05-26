@@ -2,9 +2,53 @@ import java.util.Scanner;
 public class partie {
 	private joueur[] j;
 	private plateau p =new plateau(13);;
+	private int compfinpartie;
 	
 	public partie(){
 		j=null;
+		compfinpartie=0;
+	}
+	public void menu(){
+		StdDraw.setCanvasSize(800,600);
+		StdDraw.setXscale(-0.5,p.getl()+3.5);
+		StdDraw.setYscale(-2.5,p.getl()-0.5);
+		StdDraw.clear(StdDraw.BOOK_LIGHT_BLUE);
+			StdDraw.setPenColor(StdDraw.BLACK);
+			StdDraw.text(p.getl()/2+2, p.getl()-3, "Jeu des 6 couleurs");
+			StdDraw.text(p.getl()/2+2, 8, "Nombre de joueur humain");
+		StdDraw.rectangle(p.getl()/2+2, 6, p.getl()/2,p.getl()/8);
+		StdDraw.rectangle(p.getl()/2+2, 3, p.getl()/2,p.getl()/8);
+		StdDraw.rectangle(p.getl()/2+2, 0, p.getl()/2,p.getl()/8);
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.filledRectangle(p.getl()/2+2, 6, p.getl()/2,p.getl()/8);
+		StdDraw.filledRectangle(p.getl()/2+2, 3, p.getl()/2,p.getl()/8);
+		StdDraw.filledRectangle(p.getl()/2+2, 0, p.getl()/2,p.getl()/8);
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(p.getl()/2+2, 6, "2 joueurs");
+		StdDraw.text(p.getl()/2+2, 3, "3 joueurs");
+		StdDraw.text(p.getl()/2+2, 0, "4 joueurs");
+		int choix =0;
+		while(true){
+			if(StdDraw.mousePressed()){
+				
+				int x=(int)Math.round(StdDraw.mouseX());
+				int y=(int)Math.round(StdDraw.mouseY());
+			if(x<=14 && x>=2 && y<=7 && y>=5 ){
+				choix=2;
+				break;
+				}
+			if(x<=14 && x>=2 && y<=4 && y>=2 ){
+				choix=3;
+				break;
+				}
+			if(x<=14 && x>=2 && y<=1 && y>=-1 ){
+				choix=4;
+				break;
+				}
+			}}
+			p.affplateau(this.j);
+				this.initjoueur(choix);
+			
 	}
 	public void initjoueur(int nb){
 		Scanner s = new Scanner(System.in);
@@ -57,6 +101,13 @@ public class partie {
 public void clickBouton(int i){
 int c=0;
 while(c!=1){
+	if(StdDraw.hasNextKeyTyped() ){
+		int nx=StdDraw.nextKeyTyped();
+		if(nx==32){
+			this.compfinpartie=this.compfinpartie+1;
+			c=1;
+		}}
+	
 	if(StdDraw.mousePressed()){
 		
 		int x=(int)Math.round(StdDraw.mouseX());
@@ -88,21 +139,42 @@ while(c!=1){
 			c=1;
 		}
 		if(c==1){
+			this.compfinpartie=0;
 		p.affplateau(this.j);}}}
 	}
 }
+public void affscore(){
+	joueur comp=j[0];
+	int best=j[0].getscore();
+	for(int i=1;i<this.j.length;++i){
+		int score=j[i].getscore();
+		if(score>best){
+			best=score;
+			comp=j[i];
+		}
+	}
+	StdDraw.clear();
+	StdDraw.setPenColor(StdDraw.BLACK);
+	StdDraw.setPenRadius(1000);//à modifier
+	StdDraw.text(p.getl()/2,p.getl()/2,"Victoire de "+ comp.getnom());
+	StdDraw.text(p.getl()/2,p.getl()/2-1,"avec un score de "+Integer.toString(comp.getscore())+" points");
+	
+}
 	public void game(){
 		p.defplateau();
-		p.affplateau(this.j);
-		this.initjoueur(2);
-		System.out.println(j[0].getscore());
-		System.out.println(j[1].getscore());
-		while(true){
-			for(int i=0;i<p.getl();++i){
+		menu();
+		int t=0;
+		while(t==0){
+			for(int i=0;i<this.j.length;++i){
 		this.clickBouton(i);
-		System.out.println(j[i].getscore());
+		if(this.compfinpartie==this.j.length){
+			t=1;
+			break;
 		}}
+			
 	}
+		System.out.print("fin");
+		affscore();}
 
 	}
 
