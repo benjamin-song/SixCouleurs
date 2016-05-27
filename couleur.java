@@ -34,4 +34,7 @@ public joueur getjcolor(){
 public void setjcolor(joueur j){
 	this.j=j;
 }
+public int getid(){
+ return this.id;
+}
 }

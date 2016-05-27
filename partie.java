@@ -130,7 +130,7 @@ while(c!=1){
 			this.finpartie=true;
 			c=1;
 		}
-	
+	if(j[i].getia()==false){
 	if(StdDraw.mousePressed()){
 		
 		int x=(int)Math.round(StdDraw.mouseX());
@@ -160,9 +160,16 @@ while(c!=1){
 		if((x==10||x==11) && (y==-1||y==-2) && p.getcyan().getjcolor()==null){
 			tour(j[i],p.getcyan());
 			c=1;
+		}}}}
+		if(j[i].getia()==true){
+			couleur mc=p.bestColor(j[i]);
+			tour(j[i],mc);
+			c=1;
+			 try {Thread.sleep(2000);}
+			 catch(InterruptedException x){}
 		}
 		if(c==1){
-		p.affplateau(this.j);}}}
+		p.affplateau(this.j);}
 	}
 }
 public void affscore(){

@@ -107,9 +107,6 @@ if(p[x][y].getcasecolor().getjcolor()!=null && p[x][y].getjcase()==null){
 }
 public int voisinCase(int i,int j){
 	if(p[i][j].getcasecolor().getjcolor()==null){
-		//if((i<1 ||p[i-1][j].getcasecolor()!=p[i][j].getcasecolor())&& (j<1||p[i][j-1].getcasecolor()!=p[i][j].getcasecolor()) ){
-		//return 1;	
-		//}
 		if(i>0 && p[i-1][j].getcasecolor()==p[i][j].getcasecolor()&& (j<1 ||p[i][j-1].getcasecolor()!=p[i][j].getcasecolor()) ){
 			return 1+voisinCase(i-1,j);	
 			}
@@ -122,6 +119,75 @@ public int voisinCase(int i,int j){
 		else{return 1;}
 	}
 	else{return 0;}
+}
+public couleur bestColor(joueur j){
+	int nb=0;
+	couleur mc=null;
+	for(int c=1;c<7;++c){
+		int provi=0;
+		for(int i=0;i<this.getl();++i){
+			for(int k=0;k<this.getl();++k){
+				if(this.p[i][k].getjcase()==j){
+					if(0<i && p[i-1][k].getcasecolor().getjcolor()==null && p[i-1][k].getcasecolor().getid()==c){
+						provi+=1;
+					}
+					if(this.l-1>i && p[i+1][k].getcasecolor().getjcolor()==null && p[i+1][k].getcasecolor().getid()==c){
+						provi+=1;
+					}
+					if(this.l-1>k && p[i][k+1].getcasecolor().getjcolor()==null && p[i][k+1].getcasecolor().getid()==c){
+						provi+=1;
+					}
+					if(0<k && p[i][k-1].getcasecolor().getjcolor()==null && p[i][k-1].getcasecolor().getid()==c){
+						provi+=1;
+					}
+				}
+			}
+		}
+		if(provi>nb){
+			nb=provi;
+			switch (c){
+			case 0:
+				if(rouge.getjcolor()==null){
+					mc=this.rouge;
+				}
+				if(orange.getjcolor()==null){
+					mc=this.orange;
+				}
+				if(jaune.getjcolor()==null){
+					mc=this.jaune;
+				}
+				if(vert.getjcolor()==null){
+					mc=this.vert;
+				}
+				if(bleu.getjcolor()==null){
+					mc=this.bleu;
+				}
+				if(cyan.getjcolor()==null){
+					mc=this.cyan;
+				}
+				break;
+			case 1:
+				mc=this.rouge;
+				break;
+			case 2:
+				mc=this.orange;
+				break;
+			case 3:
+				mc=this.jaune;
+				break;
+			case 4:
+				mc=this.vert;
+				break;
+			case 5:
+				mc=this.bleu;
+				break;
+			case 6:
+				mc=this.cyan;
+				break;
+			}
+		}
+	}
+	return mc;
 }
 public int[] caseDepIa(){
 	int score=0;
