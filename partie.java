@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class partie {
 	private joueur[] j;
 	private plateau p =new plateau(13);;
@@ -51,19 +50,17 @@ public class partie {
 			
 	}
 	public void initjoueur(int nb){
-		Scanner s = new Scanner(System.in);
 		this.j=new joueur[nb];
        for(int i=0;i<nb;i++){
-    	   System.out.println("veuillez entrer votre nom");
-    	   String nom=s.nextLine();
     	   int c=0;
-    	   System.out.println("veuillez séléctionner votre case de départ");
+    	   StdDraw.setPenColor(StdDraw.BLACK);
+		   StdDraw.text(p.getl()/2+1, -1, "Joueur "+Integer.toString(i+1) +" choisissez votre case de départ");
     	   while(c==0){
     	   if(StdDraw.mousePressed()){
 				int x=(int)Math.round(StdDraw.mouseX());
 				int y=(int)Math.round(StdDraw.mouseY());
 				if(y>=0 && x<p.getl()-0.5){
-				this.j[i]=new joueur(nom,x,y);
+				this.j[i]=new joueur("Joueur "+Integer.toString(i+1),x,y);
 				if(p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().getjcolor()==null){
 				p.getp()[j[i].getx0()][j[i].gety0()].setj(j[i]);
 				p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().setjcolor(j[i]);

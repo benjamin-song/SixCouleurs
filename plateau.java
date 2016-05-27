@@ -72,12 +72,13 @@ public void affplateau(joueur[] jou){
 		StdDraw.text(this.l+1,this.l-2-2*t,jou[t].getnom());
 		StdDraw.text(this.l+1,this.l-3-2*t,Integer.toString(jou[t].getscore()));
 	}}}
+	if(jou!=null && jou[jou.length-1]!=null){
 	Brouge.afficherBouton(0.5, -1.5);
 	Borange.afficherBouton(2.5, -1.5);
 	Bjaune.afficherBouton(4.5, -1.5);
 	Bvert.afficherBouton(6.5, -1.5);
 	Bbleu.afficherBouton(8.5, -1.5);
-	Bcyan.afficherBouton(10.5, -1.5);
+	Bcyan.afficherBouton(10.5, -1.5);}
 }
 public void controlCase(int x,int y){
 	int voisin=0;
