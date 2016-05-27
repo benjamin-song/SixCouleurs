@@ -105,6 +105,41 @@ if(p[x][y].getcasecolor().getjcolor()!=null && p[x][y].getjcase()==null){
 	}
 }	
 }
+public int voisinCase(int i,int j){
+	if(p[i][j].getcasecolor().getjcolor()==null){
+		//if((i<1 ||p[i-1][j].getcasecolor()!=p[i][j].getcasecolor())&& (j<1||p[i][j-1].getcasecolor()!=p[i][j].getcasecolor()) ){
+		//return 1;	
+		//}
+		if(i>0 && p[i-1][j].getcasecolor()==p[i][j].getcasecolor()&& (j<1 ||p[i][j-1].getcasecolor()!=p[i][j].getcasecolor()) ){
+			return 1+voisinCase(i-1,j);	
+			}
+		if((i<1 ||p[i-1][j].getcasecolor()!=p[i][j].getcasecolor())&& j>0 && p[i][j-1].getcasecolor()==p[i][j].getcasecolor()) {
+			return 1+voisinCase(i,j-1);	
+			}
+		if(i>0 && p[i-1][j].getcasecolor()==p[i][j].getcasecolor()&&j>0 && p[i][j-1].getcasecolor()==p[i][j].getcasecolor()){
+			return 1+voisinCase(i-1,j)+voisinCase(i,j-1);	
+		}
+		else{return 1;}
+	}
+	else{return 0;}
+}
+public int[] caseDepIa(){
+	int score=0;
+	int x=0;
+	int y=0;
+	for(int i=0;i<this.l;++i){
+		for(int j=0;j<this.l;++j){
+			int provi=Math.max(score, voisinCase(i,j));
+			if(provi>score){
+				x=i;
+				y=j;
+				score=provi;
+			}
+		}
+	}
+	int[] tab={x,y};
+	return tab;
+}
 public Case[][] getp(){
 	return this.p;
 }

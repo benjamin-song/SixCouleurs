@@ -1,11 +1,11 @@
 public class partie {
 	private joueur[] j;
 	private plateau p =new plateau(13);;
-	private int compfinpartie;
+	private boolean finpartie;
 	
 	public partie(){
 		j=null;
-		compfinpartie=0;
+		finpartie=false;
 	}
 	public void menu(){
 		StdDraw.setCanvasSize(800,600);
@@ -14,7 +14,7 @@ public class partie {
 		StdDraw.clear(StdDraw.BOOK_LIGHT_BLUE);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			StdDraw.text(p.getl()/2+2, p.getl()-3, "Jeu des 6 couleurs");
-			StdDraw.text(p.getl()/2+2, 8, "Nombre de joueur humain");
+			StdDraw.text(p.getl()/2+2, 8, "Nombre de joueur");
 		StdDraw.rectangle(p.getl()/2+2, 6, p.getl()/2,p.getl()/8);
 		StdDraw.rectangle(p.getl()/2+2, 3, p.getl()/2,p.getl()/8);
 		StdDraw.rectangle(p.getl()/2+2, 0, p.getl()/2,p.getl()/8);
@@ -55,18 +55,34 @@ public class partie {
     	   int c=0;
     	   StdDraw.setPenColor(StdDraw.BLACK);
 		   StdDraw.text(p.getl()/2+1, -1, "Joueur "+Integer.toString(i+1) +" choisissez votre case de départ");
+		   StdDraw.text(p.getl()/2+1, -1.5, "Appuyez sur espace pour créer une IA");
     	   while(c==0){
     	   if(StdDraw.mousePressed()){
 				int x=(int)Math.round(StdDraw.mouseX());
 				int y=(int)Math.round(StdDraw.mouseY());
 				if(y>=0 && x<p.getl()-0.5){
-				this.j[i]=new joueur("Joueur "+Integer.toString(i+1),x,y);
+				this.j[i]=new joueur("Joueur "+Integer.toString(i+1),x,y,false);
 				if(p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().getjcolor()==null){
 				p.getp()[j[i].getx0()][j[i].gety0()].setj(j[i]);
 				p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().setjcolor(j[i]);
 				c+=1;}
+				
 				}
-		 }}
+		 }
+    	   if(StdDraw.hasNextKeyTyped() ){
+    		   System.out.println("e");
+    			int nx=StdDraw.nextKeyTyped();
+    			if(nx==32){
+    				 System.out.println("space");
+    				int[] tab=p.caseDepIa();
+    				int x=tab[0];
+    				int y=tab[1];
+    				this.j[i]=new joueur("Joueur "+Integer.toString(i+1)+" (IA)",x,y,true);
+    				p.getp()[j[i].getx0()][j[i].gety0()].setj(j[i]);
+    				p.getp()[j[i].getx0()][j[i].gety0()].getcasecolor().setjcolor(j[i]);
+    				c+=1;
+    			}}
+    			}
     	   for(int k=0;k<p.getl();++k){
    			for(int t=0;t<p.getl();++t){
    				for(int l=0;l<p.getl();++l){
@@ -97,13 +113,23 @@ public class partie {
 	}
 public void clickBouton(int i){
 int c=0;
+boolean caselibre=true;
 while(c!=1){
-	if(StdDraw.hasNextKeyTyped() ){
-		int nx=StdDraw.nextKeyTyped();
-		if(nx==32){
-			this.compfinpartie=this.compfinpartie+1;
+	for(int a=0;a<p.getl();++a){
+		for(int b=0;b<p.getl();++b){
+			if(p.getp()[a][b].getjcase()==null){
+				caselibre=false;
+			}
+		}
+	}
+	for(int d=0;d<j.length;++d){
+		if(j[d].getscore()>p.getl()*p.getl()/2){
+			caselibre=true;	
+	}}
+		if(caselibre==true){
+			this.finpartie=true;
 			c=1;
-		}}
+		}
 	
 	if(StdDraw.mousePressed()){
 		
@@ -136,7 +162,6 @@ while(c!=1){
 			c=1;
 		}
 		if(c==1){
-			this.compfinpartie=0;
 		p.affplateau(this.j);}}}
 	}
 }
@@ -164,13 +189,12 @@ public void affscore(){
 		while(t==0){
 			for(int i=0;i<this.j.length;++i){
 		this.clickBouton(i);
-		if(this.compfinpartie==this.j.length){
+		if(this.finpartie==true){
 			t=1;
 			break;
 		}}
 			
 	}
-		System.out.print("fin");
 		affscore();}
 
 	}
