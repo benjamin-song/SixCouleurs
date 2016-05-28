@@ -145,27 +145,8 @@ public couleur bestColor(joueur j){
 		}
 		if(provi>nb){
 			nb=provi;
+			
 			switch (c){
-			case 0:
-				if(rouge.getjcolor()==null){
-					mc=this.rouge;
-				}
-				if(orange.getjcolor()==null){
-					mc=this.orange;
-				}
-				if(jaune.getjcolor()==null){
-					mc=this.jaune;
-				}
-				if(vert.getjcolor()==null){
-					mc=this.vert;
-				}
-				if(bleu.getjcolor()==null){
-					mc=this.bleu;
-				}
-				if(cyan.getjcolor()==null){
-					mc=this.cyan;
-				}
-				break;
 			case 1:
 				mc=this.rouge;
 				break;
@@ -186,6 +167,25 @@ public couleur bestColor(joueur j){
 				break;
 			}
 		}
+		if(nb==0){
+			if(rouge.getjcolor()==null){
+				mc=this.rouge;
+			}
+			if(orange.getjcolor()==null){
+				mc=this.orange;
+			}
+			if(jaune.getjcolor()==null){
+				mc=this.jaune;
+			}
+			if(vert.getjcolor()==null){
+				mc=this.vert;
+			}
+			if(bleu.getjcolor()==null){
+				mc=this.bleu;
+			}
+			if(cyan.getjcolor()==null){
+				mc=this.cyan;
+			}}
 	}
 	return mc;
 }

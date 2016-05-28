@@ -165,7 +165,7 @@ while(c!=1){
 			couleur mc=p.bestColor(j[i]);
 			tour(j[i],mc);
 			c=1;
-			 try {Thread.sleep(2000);}
+			 try {Thread.sleep(10000);}
 			 catch(InterruptedException x){}
 		}
 		if(c==1){
